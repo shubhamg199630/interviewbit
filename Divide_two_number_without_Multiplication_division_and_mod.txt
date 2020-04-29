@@ -1,0 +1,93 @@
+Divide Two number Without Multiplication , Division And Mod Operator
+
+here the question is we have to divide two number without using 3 operators as mentioned above
+okay Lets figure what we can done to slove this.
+Here is two solution is possible
+(i)- using BitWise solution
+(ii)- using log and exponent
+
+using log and Exponet is easy one you will easily get it in the internet.
+Let comes to difficult one.
+
+You know about left shift(<<) and right shift(>>) operators.But Multipilcation is easily possbile using them. Lets take and example.
+eg  let take 3,
+	binary of 3 (101) 
+	now apply left shift on 3 we get 6 (1010) that is 3*2
+	now again apply left shift on 6 we get 12 (10100) that is 3*4
+	if you apply again we will get 3*8
+	so it is like that 3 6 12 24 48 ....
+so final key point --->(if You apply Left(<<) shift on a number that it is  multiply of that number by 2.)
+Similarly ------------>(if You apply Right(>>) shift on a number that it is  Divide  of that number by 2.)
+
+These two point are very import two understand algorithm.
+
+
+Now lets Comes to Algorithm To divide two number ---->
+	lets Divide A/B and Store result in ans variable. (both A and B should be positive)
+
+
+	ans=0;		//Put ans=0 
+	while (A>=B)    //check A is greater than B or not if not than 0 is answer intially that why we put ans=0;
+   	{
+        	long temp=B,count=1; //Make temp=B and Count=1;
+        	while (temp<=A)		// while loop so that make temp> A by left shift 
+        	{			
+            		temp=temp<<1;
+            		count=count<<1;		// increaseing count also
+        	}
+        	temp=temp>>1;			//temp is finaly greater than A . Reduce it by right shift
+        	count=count>>1;			//also for count
+        	ans=ans+count;			//add to ans
+        	A=A-temp;			//subtract A=A-temp
+    	}
+
+I know still is difficult to understand this algo- If you are not getting go to this link
+		https://www.prodevelopertutorial.com/divide-two-integers-without-using-multiplication-division-and-mod-operator/
+
+
+
+
+My intervieew Bit solution---
+
+int Solution::divide(int A, int d) {
+    long X=A;
+    long ans=0,sign;
+    if (X>=0 && d>0||X<0&&d<0)
+        sign=1;
+    else 
+        sign=0;
+        
+    X=abs(X);d=abs(d);
+    while (X>=d)
+    {
+        long temp=d,count=1;
+        while (temp<=X)
+        {
+            temp=temp<<1;
+            count=count<<1;
+        }
+        temp=temp>>1;
+        count=count>>1;
+        ans=ans+count;
+        X=X-temp;
+       // cout<<ans<<endl;
+    }
+    if (sign==0)
+    {
+        if (ans==INT_MAX)
+            ans=INT_MIN;
+        else
+            ans=0-ans;
+    }
+    else if (sign==1)
+    {
+        if (ans>INT_MAX)
+            ans=INT_MAX;
+    }
+    return ans;
+}
+
+
+
+		
+		
